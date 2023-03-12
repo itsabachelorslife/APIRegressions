@@ -1,0 +1,4656 @@
+{
+	"info": {
+		"_postman_id": "acf12795-0130-4f21-89d6-a526117fd8f9",
+		"name": "4. WFX-QA-E2E-Communications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8443841"
+	},
+	"item": [
+		{
+			"name": "Authentications",
+			"item": [
+				{
+					"name": "SuperAdmin",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdsa\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokensa\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdsa}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"qasuperuser@workforcesoftware.com\",\n    \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokensa\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUsersa\", response.userId);",
+											"pm.environment.set(\"workforceOrganizationId\", response.organizationId);",
+											"pm.environment.set(\"workforce\", response.organizationId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationsa\", authorization)",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokensa}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdsa}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"qasuperuser@workforcesoftware.com\",\n    \"organizationUniqueName\": \"workforce\",\n    \"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comm Admin",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdCommAdmin\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokenCommAdmin\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\" : \"comuser5\",\n   \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokenCommAdmin\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUserCommAdmindmin\", response.userId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationCommAdmin\", authorization)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokenCommAdmin}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\" : \"comuser5\",\n   \"organizationUniqueName\": \"workforce\",\n\t\"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User 1",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdCommUser1\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokenCommUser1\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"comuser1\",\n    \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokenCommUser1\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUserCommUser1\", response.userId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationCommUser1\", authorization)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokenCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"comuser1\",\n   \"organizationUniqueName\": \"workforce\",\n\t\"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User 2",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdCommUser2\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokenCommUser2\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\" : \"comuser2\",\n   \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokenCommUser2\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUserCommUser2\", response.userId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationCommUser2\", authorization)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokenCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"comuser2\",\n    \"organizationUniqueName\": \"workforce\",\n\t\"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User 3",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdCommUser3\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokenCommUser3\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\" : \"comuser3\",\n   \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokenCommUser3\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUserCommUser3\", response.userId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationCommUser3\", authorization)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokenCommUser3}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"comuser3\",\n    \"organizationUniqueName\": \"workforce\",\n\t\"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User 4",
+					"item": [
+						{
+							"name": "installations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"clientIdCommUser4\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientInstallationId\": \"{{$guid}}\",\n    \"apiVersion\": 17,\n    \"appId\": \"{{appId}}\",\n    \"deviceType\": \"web\",\n    \"deviceModel\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\n    \"timeZone\": \"America/Montreal\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/installations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"installations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - AuthMethod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const loginToken = postman.getResponseHeader(\"login-token\");",
+											"pm.environment.set(\"loginTokenCommUser4\", loginToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser4}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\" : \"comuser4\",\n   \"organizationUniqueName\": \"workforce\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authmethod",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authmethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Authenticate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const accessToken = postman.getResponseHeader(\"access-token\");",
+											"pm.environment.set(\"accessTokenCommUser4\", accessToken);",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"principalUserCommUser4\", response.userId);",
+											"",
+											"const authorization = postman.getResponseHeader(\"Authorization\");",
+											"pm.environment.set(\"workforceudAuthorizationCommUser4\", authorization)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "login-token",
+										"value": "{{loginTokenCommUser4}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "installation-id",
+										"value": "{{clientIdCommUser4}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"comuser4\",\n    \"organizationUniqueName\": \"workforce\",\n\t\"password\": \"Password1!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/login/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"login",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Search Hashtags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"CommHashTag0\", jsonData.hashtags[0].id);",
+									"postman.setEnvironmentVariable(\"CommHashTag1\", jsonData.hashtags[1].id);",
+									"postman.setEnvironmentVariable(\"CommHashTag2\", jsonData.hashtags[2].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"type": "text",
+								"value": "{{principalUserCommAdmindmin}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{accessTokenCommAdmin}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"limit\": 20,\n  \"offset\": 0,\n  \"partialName\": \"\",\n  \"includeTotal\": true,\n  \"sortBy\": {\n    \"propertyName\": \"name\",\n    \"order\": \"ASC\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/organizations/:organizationId/hashtag/search",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								":organizationId",
+								"hashtag",
+								"search"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "{{workforce}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search User Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"userLists\");",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"UserListsIdComm0\", jsonData.userLists[0].id);",
+									"postman.setEnvironmentVariable(\"UserListsIdComm1\", jsonData.userLists[1].id);",
+									"//postman.setEnvironmentVariable(\"UserListsId2\", jsonData.userLists[2].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"type": "text",
+								"value": "{{principalUserCommAdmindmin}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{accessTokenCommAdmin}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"limit\": 20,\n    \"offset\": 0,\n    \"searchValue\": \"Comm\",\n    \"includeTotal\": true,\n    \"sortBy\": {\n        \"propertyName\": \"name\",\n        \"order\": \"ASC\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/organizations/:organizationId/user-list/search",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								":organizationId",
+								"user-list",
+								"search"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "{{workforce}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"usersIdCommUser0\", jsonData.users[0].id);",
+									"postman.setEnvironmentVariable(\"usersIdCommUser1\", jsonData.users[1].id);",
+									"postman.setEnvironmentVariable(\"usersIdCommUser2\", jsonData.users[2].id);",
+									"postman.setEnvironmentVariable(\"usersIdCommUser3\", jsonData.users[3].id);",
+									"postman.setEnvironmentVariable(\"usersIdCommUser4\", jsonData.users[4].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"type": "text",
+								"value": "{{principalUserCommAdmindmin}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{accessTokenCommAdmin}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"limit\": 20,\n    \"offset\": 0,\n    \"searchValue\": \"Comm\",\n    \"includeTotal\": true,\n    \"sortBy\": {\n        \"propertyName\": \"name\",\n        \"order\": \"ASC\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/organizations/:organizationId/users/search",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								":organizationId",
+								"users",
+								"search"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "{{workforce}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Creat DM Admin",
+					"item": [
+						{
+							"name": "Create DM as Admin to Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"ownerId\");",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"memberIds\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"dmId0\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"CREATE DM TITLE BOOOYA! DM from 2319 Admin to users <mention mention-type=\\\"channel\\\"/> x <mention mention-type=\\\"admins\\\"/> x <mention mention-type=\\\"reviewers\\\"/> x <mention mention-type=\\\"observers\\\"/> x <mention mention-type=\\\"collaborators\\\"/>\",\n    \"memberIds\": [\n        \"{{principalUserCommUser1}}\",\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message mentions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"//pm.environment.set(\"dmId\", response.id);",
+											"pm.environment.set(\"adminAuthorId\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"Hello 2319 team members Message 1 <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser1}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message admin 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"dmMessageId\", response.id);",
+											"pm.environment.set(\"adminAuthorId\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"MESSAGE Two {{$randomAdjective}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non pro, <hashtag hashtag-id=\\\"{{CommHashTag0}}\\\"\\\"/> <hashtag hashtag-id=\\\"{{CommHashTag0}}\\\"\\\"/>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update DM Long message",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"SHAZBOT UPDATED MESSAGE 2 UPDATED {{$randomAdjective}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in <mention mention-type=\\\"channel\\\"/> x <mention mention-type=\\\"admins\\\"/> x <mention mention-type=\\\"reviewers\\\"/> x <mention mention-type=\\\"observers\\\"/> x <mention mention-type=\\\"collaborators\\\"/> reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n    \"documentId\": [\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/update-message/:messageId",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"update-message",
+										":messageId"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										},
+										{
+											"key": "messageId",
+											"value": "{{dmMessageId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as sender",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as reciever 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as reciever 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser3}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser3}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Messages admin",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/search/?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										"search",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Messages User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/search/?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										"search",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get unread badges admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"directConversations\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/unread-badges",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"unread-badges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get unread badges user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"directConversations\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/unread-badges",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"unread-badges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save read checkpoint Admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lastReadAt\": \"{{$isoTimestamp}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/save-read-checkpoint",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"save-read-checkpoint"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save read checkpoint User1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lastReadAt\": \"{{$isoTimestamp}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/save-read-checkpoint",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"save-read-checkpoint"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmId0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Creat DM SEEK and DESTROY",
+					"item": [
+						{
+							"name": "Create DM as User 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"ownerId\");",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"memberIds\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"dmIdblabbermouth\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Alright <mention mention-type=\\\"channel\\\"/> x <mention mention-type=\\\"admins\\\"/> x <mention mention-type=\\\"reviewers\\\"/> x <mention mention-type=\\\"observers\\\"/> x <mention mention-type=\\\"collaborators\\\"/>\",\n    \"memberIds\": [\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message mentions U1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"//pm.environment.set(\"dmId\", response.id);",
+											"pm.environment.set(\"adminAuthorIdBM\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"We're scanning the scene in the city tonight <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser1}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message U2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"pm.environment.set(\"dmMessageIdBM\", response.id);",
+											"//pm.environment.set(\"adminAuthorIdBM\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"We're looking for you to start up a fight <hashtag hashtag-id=\\\"{{CommHashTag0}}\\\"\\\"/> <hashtag hashtag-id=\\\"{{CommHashTag0}}\\\"\\\"/>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update DM U2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"We're looking for you to start up a fight There is an evil feeling in our brains <mention mention-type=\\\"channel\\\"/> x <mention mention-type=\\\"admins\\\"/> x <mention mention-type=\\\"reviewers\\\"/> x <mention mention-type=\\\"observers\\\"/> x <mention mention-type=\\\"collaborators\\\"/> reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n    \"documentId\": [\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/update-message/:messageId",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"update-message",
+										":messageId"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										},
+										{
+											"key": "messageId",
+											"value": "{{dmMessageIdBM}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message mentions U3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"const response = pm.response.json();",
+											"//pm.environment.set(\"dmId\", response.id);",
+											"//pm.environment.set(\"adminAuthorIdBM\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser3}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"But there's nothing new, you know it drives us insane <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser1}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message mentions U4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"//const response = pm.response.json();",
+											"//pm.environment.set(\"dmId\", response.id);",
+											"//pm.environment.set(\"adminAuthorIdBM\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser4}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser4}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"Running, on our way, hiding You will pay dying One thousand deaths Running, on our way, hiding You will pay dying One thousand deaths <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser1}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DM message mentions U1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"",
+											"//const response = pm.response.json();",
+											"//pm.environment.set(\"dmId\", response.id);",
+											"//pm.environment.set(\"adminAuthorIdBM\", response.author.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"Searching, Seek and destroy !<mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser1}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/send-message",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"send-message"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as sender",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as reciever 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser3}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser3}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Messages as reciever 4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"contents\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser4}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser4}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/feed",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"feed"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Messages U1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"\\\"userReadCheckpoints\\\"\\:\\[\\]\\,\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/search/?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										"search",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Messages U2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"\\\"userReadCheckpoints\\\"\\:\\[\\]\\,\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/search/?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										"search",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get unread badges U1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"directConversations\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/unread-badges",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"unread-badges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get unread badges U4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"directConversations\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser4}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser4}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/unread-badges",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"unread-badges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save read checkpoint U1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lastReadAt\": \"{{$isoTimestamp}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/save-read-checkpoint",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"save-read-checkpoint"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save read checkpoint U2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lastReadAt\": \"{{$isoTimestamp}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/:directConversationId/save-read-checkpoint",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										":directConversationId",
+										"save-read-checkpoint"
+									],
+									"variable": [
+										{
+											"key": "directConversationId",
+											"value": "{{dmIdblabbermouth}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Messages U1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"\\\"userReadCheckpoints\\\"\\:\\[\\{\\\"user\\\"\\:\\{\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/direct-conversations/search/?limit=20&offset=0&includeTotal=true",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"direct-conversations",
+										"search",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "20"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "includeTotal",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Channels",
+			"item": [
+				{
+					"name": "Create Channels",
+					"item": [
+						{
+							"name": "Create Channel Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"channelIdAdmin\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Channel {{$randomAdjective}}\",\n    \"memberIds\": [\n        \"{{principalUserCommUser1}}\",\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\",\n        \"{{principalUserCommAdmindmin}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Channel Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"channelIdAdmin\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Channel {{$randomAdjective}}\",\n    \"memberIds\": [\n        \"{{principalUserCommUser1}}\",\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\",\n        \"{{principalUserCommAdmindmin}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Channel Admin No Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"channelIdNoUsers\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Channel no Users {{$randomAdjective}}\",\n    \"memberIds\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Channel User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"channelIdUser\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Channel {{$randomAdjective}}\",\n    \"memberIds\": [\n        \"{{principalUserCommUser1}}\",\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\",\n        \"{{principalUserCommAdmindmin}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Channel Title Check",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(422);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"\\\"INVALID\\_REQUEST\\_DATA\\\"\\:\\[\\\"name\\\"\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319Create Channel Store Users 2319\",\n    \"memberIds\": [\n        \"{{principalUserCommUser1}}\",\n        \"{{principalUserCommUser2}}\",\n        \"{{principalUserCommUser3}}\",\n        \"{{principalUserCommUser4}}\",\n        \"{{principalUserCommAdmindmin}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post to Channel Basic",
+					"item": [
+						{
+							"name": "Post to Channel as Admin No Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"CHANNEL_MEMBERSHIP_NOT_FOUND\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"IDs X {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdNoUsers}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel as Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postIdAdmin1\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"IDs X {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdAdmin}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel as Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postIdAdmin2\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"IDs X {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel as User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postIdUser1\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"IDs X {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel as User 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postIdUser2\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"IDs X {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdAdmin}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post to Channel mentions",
+					"item": [
+						{
+							"name": "Post to Channel userlist mention",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postId0\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"hello team members <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm0}}\\\"/> <mention mention-type=\\\"userlist\\\" reference-id=\\\"{{UserListsIdComm1}}\\\"/> and <mention mention-type=\\\"user\\\" reference-id=\\\"{{principalUserCommUser4}}\\\"/> you specifally\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdAdmin}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel 5 Special Mentions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postId1\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommAdmindmin}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommAdmin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"x <mention mention-type=\\\"channel\\\"> x <mention mention-type=\\\"admins\\\"> x <mention mention-type=\\\"reviewers\\\"> x <mention mention-type=\\\"observers\\\"> x <mention mention-type=\\\"collaborators\\\">\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel Special Mentions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postId2\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"<mention mention-type=\\\"reviewers\\\"> <mention mention-type=\\\"observers\\\"> <mention mention-type=\\\"collaborators\\\">\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post to Channel Special Mentions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"postId2Update\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"<mention mention-type=\\\"collaborators\\\"> <mention mention-type=\\\"reviewers\\\"> <mention mention-type=\\\"observers\\\">\",\n    \"documentIds\": [\n        \"63864fceecbe800011dc2dbc\"\n    ],\n    \"fileIds\": [\n        \"63864f90ecbe800011dc2dba\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"create-post"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Post to Channel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"body\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser1}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"body\": \"UPDATED {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} UPDATED. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/update-post/:postId",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"update-post",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										},
+										{
+											"key": "postId",
+											"value": "{{postId2Update}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Post to Channel User Not Author",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"USER_NOT_AUTHOR\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "principal-user",
+										"value": "{{principalUserCommUser2}}",
+										"type": "text"
+									},
+									{
+										"key": "access-token",
+										"value": "{{accessTokenCommUser2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"body\": \"UPDATED {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} UPDATED. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/v1/communications/channels/:channelId/update-post/:postId",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"communications",
+										"channels",
+										":channelId",
+										"update-post",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "channelId",
+											"value": "{{channelIdUser}}"
+										},
+										{
+											"key": "postId",
+											"value": "{{postId2Update}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post to Channel U1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"body\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommUser3}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommUser3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"body\": \"{{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} <hashtag hashtag-id=\\\"{{CommHashTag0}}\\\"/> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b><div><mention mention-type=\\\"admins\\\" \\\"45d4603f-9faf-4277-a232-8425832a7a66\\\"/><mention mention-type=\\\"channel\\\" \\\"{{channelIdAdmin}}\\\"/></div> \"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"create-post"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post to Channel U3 non member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"CHANNEL_MEMBERSHIP_NOT_FOUND\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommUser3}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommUser3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"body\": \" {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <b>j-e-l-l-o</b>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"create-post"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdNoUsers}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post to Channel Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"body\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommAdmindmin}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"body\": \"This is an ADMIN post to a channled {{randomNumber}} {{$randomAdjective}} {{$randomAnimalsImage}} {{$randomBitcoin}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/create-post",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"create-post"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdAdmin}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"contents\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommAdmindmin}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommAdmin}}",
+								"type": "text"
+							},
+							{
+								"key": "includeTotal",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed?limit=20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "includeTotal",
+									"value": "true",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdAdmin}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel Admin 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"contents\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommAdmindmin}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommAdmin}}",
+								"type": "text"
+							},
+							{
+								"key": "includeTotal",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed?limit=20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "includeTotal",
+									"value": "true",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel Admin Non Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"CHANNEL_MEMBERSHIP_NOT_FOUND\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommAdmindmin}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommAdmin}}",
+								"type": "text"
+							},
+							{
+								"key": "includeTotal",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed?limit=20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "includeTotal",
+									"value": "true",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdNoUsers}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel U1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"contents\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommUser1}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommUser1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel U2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"contents\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommUser2}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommUser2}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdAdmin}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel U3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"contents\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "principal-user",
+								"value": "{{principalUserCommUser3}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{accessTokenCommUser3}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/v1/communications/channels/:channelId/feed",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"communications",
+								"channels",
+								":channelId",
+								"feed"
+							],
+							"variable": [
+								{
+									"key": "channelId",
+									"value": "{{channelIdUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
